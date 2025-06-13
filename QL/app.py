@@ -221,7 +221,7 @@ def answer_question(user_id, question_id, answer):
 
 def process_request(request):
     invoke_type = request.get("invoke_type")
-    user_id = request.get("userId")
+    user_id = request.get("username")
     answer = request.get("answer", "")
     question_id = request.get("questionId", None)
 
