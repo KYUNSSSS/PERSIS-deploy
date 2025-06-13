@@ -15,14 +15,14 @@ async function runPythonProcess(data, res) {
 
         const userFind = await user.findOne({
             where: {
-                userId: data.userId
+                username: data.username
             },
             raw: true,
-            attributes: ['userName']
+            attributes: ['username', 'name']
         });
 
         // Handle user not found scenario
-        if (!userFind || _.isEmpty(userFind.userName)) {
+        if (!userFind || _.isEmpty(userFind.name)) {
             return res.status(400).json({ response: "usernotfound" });
         }
 
