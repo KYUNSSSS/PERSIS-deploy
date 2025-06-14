@@ -345,10 +345,29 @@ exports.update = async (req, res) => {
     });
 }
 
+exports.logout = async (req, res) => {
+    try {
+        const t = await connection.sequelize.transaction();
+        
+        await usrlgnpf.update({
+            pslgnsts: false,
+            pslgidat: new Date(),
+            pslgntkn: null
+        }, {
+            where: {
+                username: req.user.username
+            },
+            transaction: t
+        });
 
-
-
-
+        await t.commit();
+        return returnSuccessMessage(req, 200, "LOGOUTSUCCESSFUL", res);
+    } catch (err) {
+        console.log(err);
+        if (t) await t.rollback();
+        return returnError(req, 500, "UNEXPECTEDERROR", res);
+    }
+};
 
 const isEmpty = (value) =>
     value === undefined ||

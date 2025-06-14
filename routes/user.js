@@ -37,7 +37,9 @@ router.get("/detail", authenticateRoute, user.detail);
 // @access  Private
 router.post("/update", authenticateRoute, user.update);
 
-
-
+// @route   POST api/user/logout
+// @desc    Logout user
+// @access  Private
+router.post("/logout", authenticateRoute, user.logout);
 
 module.exports = router;
