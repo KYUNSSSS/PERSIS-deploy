@@ -1,0 +1,14 @@
+{
+  "supabase": {
+    "url": "https://fjzptzksauedjzhehvwp.supabase.co",
+    "key": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZqenB0emtzYXVlZGp6aGVodndwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDk4ODI2ODEsImV4cCI6MjA2NTQ1ODY4MX0.PTYPUGoP0mCKbWdXHi7lthKgxESl1nI2JAcfW3q5qls",
+    "storage": {
+      "bucket": "persis-storage",
+      "paths": {
+        "messagePath": "messagePath",
+        "userPath": "userPath",
+        "qlearning": "qlearning"
+      }
+    }
+  }
+} 
