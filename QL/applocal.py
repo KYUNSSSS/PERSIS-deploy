@@ -6,9 +6,6 @@ import datetime
 import random
 import pickle
 
-# Get the absolute path to the application root directory
-APP_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 # Load API Input
 def read_input():
     input_data = sys.stdin.read()
@@ -32,7 +29,7 @@ q_table = {}
 epsilon = 0.5  # Initial exploration rate
 
 def load_q_table(user_id):
-    file_path = os.path.join(APP_ROOT, "documents", "qlearning", f"{user_id}-q_table.pkl")
+    file_path = os.path.join(os.getcwd(), "documents", "qlearning", f"{user_id}-q_table.pkl")
     global q_table
     if os.path.exists(file_path):
         with open(file_path, "rb") as f:
@@ -41,7 +38,7 @@ def load_q_table(user_id):
 
 def save_q_table(user_id):
     global q_table
-    file_path = os.path.join(APP_ROOT, "documents", "qlearning", f"{user_id}-q_table.pkl")
+    file_path = os.path.join(os.getcwd(), "documents", "qlearning", f"{user_id}-q_table.pkl")
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
     with open(file_path, "wb") as f:
         pickle.dump(q_table, f)
@@ -127,7 +124,7 @@ def update_q_table(message, persuasive_type, activity, reward,question_id, learn
 
 # Load User Data
 def load_user_data(user_id):
-    file_path = os.path.join(APP_ROOT, "documents", "userPath", f"{user_id}-user.csv")
+    file_path = os.path.join(os.getcwd(), "documents", "userPath", f"{user_id}-user.csv")
 
     # Check if the file exists
     if not os.path.exists(file_path):
@@ -151,7 +148,7 @@ def generate_question(user_id):
     load_q_table(user_id)
     global q_table
     user_data = load_user_data(user_id)
-    messages_df = pd.read_csv(os.path.join(APP_ROOT, "documents", "messagePath", "message.csv"))
+    messages_df = pd.read_csv(os.path.join("documents", "messagePath", "message.csv"))
     
     if messages_df is None or messages_df.empty:
         return return_json(400, "Message database is empty or missing.")
@@ -185,10 +182,10 @@ def generate_question(user_id):
     ], columns=["id", "message", "persuasive_type", "activity", "yesOrNo", "Date", "Time"])
     
     user_data = pd.concat([user_data, new_entry], ignore_index=True)
-    output_dir = os.path.join(APP_ROOT, "documents", "userPath")
+    output_dir = os.path.join("documents", "userPath")
     os.makedirs(output_dir, exist_ok=True)  
 
-    file_path = os.path.join(APP_ROOT, "documents", "userPath", f"{user_id}-user.csv")
+    file_path = os.path.join(os.getcwd(), "documents", "userPath", f"{user_id}-user.csv")
     user_data.to_csv(file_path, index=False)
     save_q_table(user_id)
     return_json(200, selected_message[0], question_id, selected_message[1], selected_message[2])
@@ -207,7 +204,7 @@ def answer_question(user_id, question_id, answer):
     question_answered = question_row.iloc[0]["yesOrNo"]
     if pd.notna(question_answered) and question_answered != "":
         return return_json(400, "Failed: Question ID already answered.")
-    file_path = os.path.join(APP_ROOT, "documents", "userPath", f"{user_id}-user.csv")
+    file_path = os.path.join(os.getcwd(), "documents", "userPath", f"{user_id}-user.csv")
     # Update answer
     gen_answer = "Y" if answer else "N"
     timestamp = datetime.datetime.now()

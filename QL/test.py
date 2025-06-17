@@ -2,7 +2,7 @@ import pytest
 import json
 import os
 import pandas as pd
-from app import process_request
+from QL.appcloud import process_request
 import matplotlib.pyplot as plt
 from sklearn.metrics import precision_score, recall_score, f1_score
 USER_ID = "3"

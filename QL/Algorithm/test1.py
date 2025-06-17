@@ -6,7 +6,7 @@ import pandas as pd
 import os
 import pickle
 import random
-from app import get_next_message, update_q_table, initialize_q_table, save_q_table, load_q_table
+from QL.appcloud import get_next_message, update_q_table, initialize_q_table, save_q_table, load_q_table
 
 USER_ID = "3"
 ITERATIONS = 100  # Number of test cycles
